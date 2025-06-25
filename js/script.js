@@ -1,4 +1,5 @@
 $('#search-button').on('click', function () {
+    $('#movie-list').html('');
     $.ajax({
         url: 'http://www.omdbapi.com',
         type: 'get',
@@ -15,7 +16,7 @@ $('#search-button').on('click', function () {
                 $.each(movies, function (i, data) {
                     $('#movie-list').append(`
                     <div class="col-md-4 d-flex justify-content-center mb-4">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card mb-3" style="width: 18rem;">
                         <img src="${data.Poster}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">${data.Title}</h5>
@@ -26,7 +27,9 @@ $('#search-button').on('click', function () {
                     </div>
                     `);
 
-                })
+                });
+
+                $('#search-input').val();
                 
             } else {
                 $('#movie-list').html(`
