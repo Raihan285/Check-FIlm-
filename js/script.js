@@ -1,5 +1,5 @@
-$('#search-button').on('click', function () {
-    $('#movie-list').html('');
+function searchMovie () {
+  $('#movie-list').html('');
     $.ajax({
         url: 'http://www.omdbapi.com',
         type: 'get',
@@ -38,5 +38,9 @@ $('#search-button').on('click', function () {
                     </div>`);
             }
         }
-    });
+    });  
+};
+
+$('#search-button').on('click', function () {
+    searchMovie();
 });
