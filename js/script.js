@@ -1,17 +1,39 @@
 $('#search-button').on('click', function () {
-// $.getJSON(' http://www.omdbapi.com/?i=tt3896198&apikey=bac51001')
-
     $.ajax({
-        url: ' http://www.omdbapi.com',
+        url: 'http://www.omdbapi.com',
         type: 'get',
-        datatype: 'json',
+        dataType: 'json',
         data: {
             'apikey': 'bac51001',
-            's':$('#search-input').val()
+            's': $('#search-input').val()
         },
         success: function (result) {
-            console.log(result)
+            if (result.Response == "True") {
+                let movies = result.Search;
+                console.log(movies);
+
+                $.each(movies, function (i, data) {
+                    $('#movie-list').append(`
+                    <div class="col-md-4 d-flex justify-content-center mb-4">
+                        <div class="card" style="width: 18rem;">
+                        <img src="${data.Poster}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${data.Title}</h5>
+                            <p class="card-text">${data.Year}</p>
+                            <a href="#" class="card-link">See More</a>
+                        </div>
+                        </div>
+                    </div>
+                    `);
+
+                })
+                
+            } else {
+                $('#movie-list').html(`
+                    <div class="col">
+                        <h1 class="text-center">` + result.Error + `</h1>
+                    </div>`);
+            }
         }
-        
     });
 });
